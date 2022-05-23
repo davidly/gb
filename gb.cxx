@@ -52,7 +52,6 @@ void Usage()
     exit( 0 );
 } //Usage
 
-bool g_Capture = false;
 bool g_Enumerate = true;
 bool g_WholeWindow = false;
 bool g_Verbose = false;
@@ -197,20 +196,6 @@ BOOL CALLBACK EnumWindowsProc( HWND hwnd, LPARAM lParam )
                     HDC hdcMem = CreateCompatibleDC( hdcDesktop );
                     if ( 0 != hdcMem )
                     {
-                        HMONITOR hMonitor = MonitorFromWindow( hwnd, MONITOR_DEFAULTTONEAREST );
-                        MONITORINFO mi = {0};
-                        mi.cbSize = sizeof mi;
-                        int monitorX = 0, monitorY = 0;
-                        if ( GetMonitorInfo( hMonitor, & mi ) )
-                        {
-                            if ( g_Verbose )
-                                printf( "window monitor's rect: %d %d %d %d\n", mi.rcMonitor.left, mi.rcMonitor.top,
-                                        mi.rcMonitor.right, mi.rcMonitor.bottom );
-
-                            monitorX = mi.rcMonitor.left;
-                            monitorY = mi.rcMonitor.top;
-                        }
-
                         int width = rcWindow.right - rcWindow.left;
                         int height = rcWindow.bottom - rcWindow.top;
                         int sourceX = rcWindow.left;
