@@ -1,5 +1,5 @@
 # gb
-Get Bitmap. Gets a screen capture of an app and saves it to an image file
+Get Bitmap. Takes a screen capture of a Windows app and saves it to an image file.
 
 Build using a Microsoft Visual Studio 64 bit command prompt using m.bat
 
@@ -33,7 +33,6 @@ Build using a Microsoft Visual Studio 64 bit command prompt using m.bat
       -2899     64   -904   2116   0x631458 15056 'Editing gb/README.md at main ╖ davidly/gb - Personal - Microsoft  Edge'
       -3840      0  -1845   2160    0x4008c 15056 'PV/main.yml at main ╖ davidly/PV and 5 more pages - Personal - Microsoft  Edge'
        1683    493   3632   2058   0x141b0a 16840 'Administrator: cmd.exe'
-       2094    100   3841   1775    0x20a3a 17444 'Inbox - canddlee@hotmail.com - Outlook'
        1958   1140   3323   2045  0x31608e2 24124 'Calculator'
         624    188   2063   2006    0x309c6 11816 'Administrator: cmd.exe'
         108    172   1677   1898   0xe00e68  4272 'Administrator: cmd.exe'
