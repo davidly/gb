@@ -26,7 +26,7 @@ using namespace std;
 
 void Usage()
 {
-    printf( "usage: gb [-v] [-w] [appname] [outputfile]]\n" );
+    printf( "usage: gb [-v] [-w] [appname] [outputfile]\n" );
     printf( "  Get Bitmap: creates a bitmap containing contents of a window\n" );
     printf( "  arguments: [appname]       Name of the app to capture. Can contain wildcards.\n" );
     printf( "             [outputfile]    Name of the image file to create.\n" );
