@@ -1,5 +1,5 @@
 # gb
-Get Bitmap. Gets a screen capture of an app and saves it to an image file
+Get Bitmap. Takes a screen capture of a Windows app and saves it to an image file.
 
 Build using a Microsoft Visual Studio 64 bit command prompt using m.bat
 
