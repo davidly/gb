@@ -3,8 +3,7 @@ Get Bitmap. Gets a screen capture of an app and saves it to an image file
 
 Build using a Microsoft Visual Studio 64 bit command prompt using m.bat
 
-usage: gb [-v] [-w] [appname] [outputfile]
-
+    usage: gb [-v] [-w] [appname] [outputfile]
     Get Bitmap: creates a bitmap containing contents of a window
     arguments: [appname]       Name of the app to capture. Can contain wildcards.
                [outputfile]    Name of the image file to create.
