@@ -5,7 +5,6 @@
 #include <windows.h>
 #include <gdiplus.h>
 #include <shlwapi.h>
-#include <shellscalingapi.h>
 
 #include <stdio.h>
 
@@ -22,7 +21,6 @@ using namespace std;
 #pragma comment( lib, "gdi32.lib" )
 #pragma comment( lib, "gdiplus.lib" )
 #pragma comment( lib, "shlwapi.lib" )
-#pragma comment( lib, "shcore.lib" )
 
 void Usage()
 {
