@@ -22,8 +22,11 @@ using namespace std;
 #pragma comment( lib, "gdiplus.lib" )
 #pragma comment( lib, "shlwapi.lib" )
 
-void Usage()
+void Usage( const char * pcMessage = 0 )
 {
+    if ( 0 != pcMessage )
+        printf( "error: %s\n", pcMessage );
+
     printf( "usage: gb [-v] [-w] [appname] [outputfile]\n" );
     printf( "  Get Bitmap: creates a bitmap containing contents of a window\n" );
     printf( "  arguments: [appname]       Name of the app to capture. Can contain wildcards.\n" );
@@ -218,9 +221,6 @@ BOOL CALLBACK EnumWindowsProc( HWND hwnd, LPARAM lParam )
                             POINT ptUL = { 0, 0 };
                             MapWindowPoints( hwnd, HWND_DESKTOP, & ptUL, 1 );
 
-                            if ( g_Verbose )
-                                printf( "mapped source left and top: %d %d\n", ptUL.x, ptUL.y );
-
                             sourceX = ptUL.x;
                             sourceY = ptUL.y;
 
@@ -288,7 +288,7 @@ extern "C" int wmain( int argc, WCHAR * argv[] )
             else if ( 'v' == p )
                 g_Verbose = true;
             else
-                Usage();
+                Usage( "invalid argument" );
         }
         else if ( 0 == g_AppName[ 0 ] )
         {
@@ -330,11 +330,11 @@ extern "C" int wmain( int argc, WCHAR * argv[] )
             wcscpy( g_BitmapName, parg );
         }
         else
-            Usage();
+            Usage( "too many arguments specified" );
     }
 
     if ( !g_Enumerate && 0 == g_BitmapName[0] )
-        Usage();
+        Usage( "output bitmap filename wasn't specified" );
 
     GdiplusStartupInput gdiplusStartupInput;
     ULONG_PTR gdiplusToken;
@@ -354,7 +354,7 @@ extern "C" int wmain( int argc, WCHAR * argv[] )
         g_AppId = wcstoull( g_AppName, &pwcEnd, 0 );
 
         if ( g_Verbose )
-            printf( "app id %#llx\n", g_AppId );
+            printf( "app id %#llx == %lld\n", g_AppId, g_AppId );
     }
 
     EnumWindows( EnumWindowsProc, 0 );
