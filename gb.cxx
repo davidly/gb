@@ -173,7 +173,7 @@ BOOL CALLBACK EnumWindowsProc( HWND hwnd, LPARAM lParam )
     WINDOWINFO wi;
     wi.cbSize = sizeof wi;
     ok = GetWindowInfo( hwnd, & wi );
-    if ( ok && ( SW_NORMAL == wp.showCmd ) )
+    if ( ok && ( ( SW_NORMAL == wp.showCmd ) || ( SW_MAXIMIZE == wp.showCmd ) ) )
     {
         RECT rcWindow = wi.rcWindow;
 
