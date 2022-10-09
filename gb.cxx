@@ -53,15 +53,15 @@ void Usage( const char * pcMessage = 0 )
     exit( 0 );
 } //Usage
 
-bool g_Enumerate = true;
-bool g_WholeWindow = false;
-bool g_Verbose = false;
-bool g_CaptureSuccess = false;
-bool g_FoundMatchingWindow = false;
-WCHAR g_BitmapName[ MAX_PATH ] = {0};
-WCHAR g_AppName[ MAX_PATH ] = {0};
-WCHAR g_AppNameRegex[ 3 * _countof( g_AppName ) ] = {0};
-unsigned long long g_AppId = 0; // hwnd or procid
+bool g_Enumerate = true;                                        // enumerate windows; don't capture bitmap
+bool g_WholeWindow = false;                                     // the whole window, not just the client area
+bool g_Verbose = false;                                         // print debug information
+bool g_CaptureSuccess = false;                                  // did we capture a bitmap?
+bool g_FoundMatchingWindow = false;                             // did we find a matching window?
+WCHAR g_BitmapName[ MAX_PATH ] = {0};                           // output filename
+WCHAR g_AppName[ MAX_PATH ] = {0};                              // name of the app to find, can contain wildcards
+WCHAR g_AppNameRegex[ 3 * _countof( g_AppName ) ] = {0};        // regex equivalent of g_AppName
+unsigned long long g_AppId = 0;                                 // hwnd or procid to use instead of g_AppName
 
 int GetEncoderClsid( const WCHAR * format, CLSID * pClsid )
 {
@@ -247,14 +247,14 @@ BOOL CALLBACK EnumWindowsProc( HWND hwnd, LPARAM lParam )
                             DeleteObject( hbMem );
                         }
                         else
-                            printf( "unable create create a compatible DC\n" );
+                            printf( "unable create create a compatible Bitmap\n" );
 
-                        ReleaseDC( 0, hdcMem );
+                        DeleteDC( hdcMem ); // from Create(), not Get()
                     }
                     else
                         printf( "unable to get the compatible memory hdc, error %d\n", GetLastError() );
 
-                    ReleaseDC( 0, hdcDesktop );
+                    ReleaseDC( 0, hdcDesktop ); // From Get(), not Create()
                 }
                 else
                     printf( "unable to get the desktop hdc, error %d\n", GetLastError() );
