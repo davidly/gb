@@ -179,7 +179,7 @@ BOOL CALLBACK EnumWindowsProc( HWND hwnd, LPARAM lParam )
 
         if ( g_Enumerate )
         {
-            printf( " %6d %6d %6d %6d %#10llx %#5d '%ws'\n",
+            printf( " %6d %6d %6d %6d %#11llx %#7d '%ws'\n",
                     rcWindow.left, rcWindow.top, rcWindow.right, rcWindow.bottom, (__int64) hwnd, procId, awcText );
         }
         else
@@ -347,7 +347,7 @@ extern "C" int wmain( int argc, WCHAR * argv[] )
     }
 
     if ( g_Enumerate )
-        printf( "   left    top  right bottom       hwnd   pid text\n" );
+        printf( "   left    top  right bottom        hwnd     pid text\n" );
     else
     {
         WCHAR * pwcEnd = 0;
