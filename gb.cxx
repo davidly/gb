@@ -2,8 +2,11 @@
 // Get Bitmap: creates a bitmap containing contents of a window
 //
 
+#define _CRT_SECURE_NO_WARNINGS
 #include <windows.h>
+#pragma warning( disable: 4458 ) // gdi+ generates these warnings
 #include <gdiplus.h>
+#pragma warning( default: 4458 ) // gdi+ generates these warnings
 #include <shlwapi.h>
 
 #include <stdio.h>
@@ -76,7 +79,7 @@ int GetEncoderClsid( const WCHAR * format, CLSID * pClsid )
 
     for ( UINT j = 0; j < num; j++ )
     {
-        if ( 0 == wcsicmp( pImageCodecInfo[ j ].MimeType, format ) )
+        if ( 0 == _wcsicmp( pImageCodecInfo[ j ].MimeType, format ) )
         {
             *pClsid = pImageCodecInfo[ j ].Clsid;
             return j;
@@ -88,19 +91,19 @@ int GetEncoderClsid( const WCHAR * format, CLSID * pClsid )
 
 const WCHAR * InferOutputType( WCHAR *ext )
 {
-    if ( !wcsicmp( ext, L".bmp" ) )
+    if ( !_wcsicmp( ext, L".bmp" ) )
         return L"image/bmp";
 
-    if ( !wcsicmp( ext, L".gif" ) )
+    if ( !_wcsicmp( ext, L".gif" ) )
         return L"image/gif";
 
-    if ( ( !wcsicmp( ext, L".jpg" ) ) || ( !wcsicmp( ext, L".jpeg" ) ) )
+    if ( ( !_wcsicmp( ext, L".jpg" ) ) || ( !_wcsicmp( ext, L".jpeg" ) ) )
         return L"image/jpeg";
 
-    if ( !wcsicmp( ext, L".png" ) )
+    if ( !_wcsicmp( ext, L".png" ) )
         return L"image/png";
 
-    if ( ( !wcsicmp( ext, L".tif" ) ) || ( !wcsicmp( ext, L".tiff" ) ) )
+    if ( ( !_wcsicmp( ext, L".tif" ) ) || ( !_wcsicmp( ext, L".tiff" ) ) )
         return L"image/tiff";
 
     return L"image/jpeg";     // default
@@ -130,6 +133,7 @@ bool SaveHBitmap( HBITMAP hbitmap, const WCHAR * path )
     return ( Ok == s );
 } //SaveHBitmap
 
+#pragma warning( disable: 4100 ) // unreferenced formal parameter
 BOOL CALLBACK EnumWindowsProc( HWND hwnd, LPARAM lParam )
 {
     BOOL visible = IsWindowVisible( hwnd );
@@ -281,7 +285,7 @@ extern "C" int wmain( int argc, WCHAR * argv[] )
 
         if ( L'-' == parg[0] || L'/' == parg[0] )
         {
-            WCHAR p = tolower( parg[1] );
+            WCHAR p = (WCHAR) tolower( parg[1] );
 
             if ( 'w' == p )
                 g_WholeWindow = true;
@@ -296,8 +300,8 @@ extern "C" int wmain( int argc, WCHAR * argv[] )
             g_Enumerate = false;
 
             int r = 0;
-            int len = wcslen( g_AppName );
-            for ( int i = 0; i < len; i++ )
+            size_t len = wcslen( g_AppName );
+            for ( size_t i = 0; i < len; i++ )
             {
                 WCHAR c = g_AppName[ i ];
 
